@@ -7,11 +7,9 @@ angular.module('app').
 
           template: `
             <div class='pageWidth pageHeight outerContainer red'>
-              <div class='centerBox translucentGrey'>
-              <label>Enter your name</label><br/>
-                <input ng-model='homeCtrl.userService.name' type='text'></input><br/>
-                <a ng-href='#welcome'>Enter the Website, {{homeCtrl.userService.name}}!</a></br>
-                <input type='button' ng-click='homeCtrl.userService.clear()' value='Clear'></input>
+              <div class='centerBox'>
+                <a ng-href='#score'><input type='button' ng-click='homeCtrl.userService.clear()' value='New' class='row'></input></a><br/>
+                <a ng-href='#score' ng-show='homeCtrl.userService.continuable'><input type='button' value='Continue' class='row'></input></a>
               </div>
             </div>
           `,
@@ -19,15 +17,18 @@ angular.module('app').
           controllerAs: 'homeCtrl'
 
         }).
-      	when('/welcome', {
+      	when('/score', {
 
           template: `
-            <div class='pageWidth pageHeight'>
-              <label> Welcome to AngularJS, {{dashboardCtrl.userService.name}}!</label>
+            <label> Score: {{scoreCtrl.userService.score}}</label>
+            <div class='pageWidth pageHeight outerContainer'>
+              <div class='centerBox'>
+                <input type='button' ng-click='scoreCtrl.userService.increment()' value='+1' class='row'></input>
+              </div>
             </div>
           `,
-          controller: 'DashboardController',
-          controllerAs: 'dashboardCtrl',
+          controller: 'ScoreController',
+          controllerAs: 'scoreCtrl',
         }).
         otherwise('/home');
     }
